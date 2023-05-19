@@ -76,7 +76,7 @@ class CalendarForm extends React.Component {
 	handleForm = e => {
 		e.preventDefault();
 
-		// const { submitForm } = this.props;
+		const { submitForm } = this.props;
 
 		const meeting = {
 			firstName: e.target.firstName.value,
@@ -93,9 +93,9 @@ class CalendarForm extends React.Component {
 
 		if (errors.length > 0) {
 			console.log(errors);
-			alert("Fix the form");
+			alert("Check the form");
 		} else {
-			// submitForm(meeting);
+			submitForm(meeting);
 			this.setState({
 				meeting: {
 					firstName: "",

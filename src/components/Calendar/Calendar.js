@@ -1,6 +1,6 @@
 import React from "react";
 import CalendarList from "../CalendarList/CalendarList";
-import { handleFetch } from "../../api/CalendarProvider";
+import { handleFetch, postFetch } from "../../api/CalendarProvider";
 import CalendarForm from "../CalendarForm/CalendarForm";
 
 class Calendar extends React.Component {
@@ -11,7 +11,7 @@ class Calendar extends React.Component {
 	render() {
 		return (
 			<>
-				<CalendarForm />
+				<CalendarForm submitForm={this.handleForm} />
 				<CalendarList meetings={this.state.meetings} />
 			</>
 		);
@@ -24,6 +24,16 @@ class Calendar extends React.Component {
 			);
 		});
 	}
+
+	handleForm = meeting => {
+		const { meetings } = this.state;
+
+		postFetch(meeting).then(meetingWithId => {
+			this.setState({
+				meetings: [...meetings, meetingWithId],
+			});
+		});
+	};
 }
 
 export default Calendar;

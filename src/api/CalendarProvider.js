@@ -13,3 +13,12 @@ export function handleFetch(options, additionalPath = "") {
 	// 	console.log(resp);
 	// });
 }
+
+export function postFetch(meeting) {
+	const options = {
+		method: "POST",
+		body: JSON.stringify(meeting),
+		headers: { "Content-Type": "application/json" },
+	};
+	return handleFetch(options);
+}

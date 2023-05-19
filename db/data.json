@@ -1,12 +1,20 @@
 {
-	"meetings": [
-		{
-			"firstName": "Jan",
-			"lastName": "Kowalski",
-			"email": "jan@kowalski.not",
-			"date": "2022-01-01",
-			"time": "10:00",
-			"id": 1
-		}
-	]
+  "meetings": [
+    {
+      "firstName": "Jan",
+      "lastName": "Kowalski",
+      "email": "jan@kowalski.not",
+      "date": "2022-01-01",
+      "time": "10:00",
+      "id": 1
+    },
+    {
+      "firstName": "Diana",
+      "lastName": "Rasińska-Kowalczyk",
+      "email": "diana.rasinska@gmail.com",
+      "date": "2023-03-09",
+      "time": "12:00",
+      "id": 2
+    }
+  ]
 }
