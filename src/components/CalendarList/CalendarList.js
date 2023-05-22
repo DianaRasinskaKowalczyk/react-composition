@@ -3,10 +3,16 @@ import CalendarItem from "../CalendarItem/CalendarItem";
 
 class CalendarList extends React.Component {
 	render() {
-		const { meetings } = this.props;
+		const { meetings, removeMeeting } = this.props;
 
 		const meetingsList = meetings.map(meeting => {
-			return <CalendarItem meeting={meeting} key={meeting.id} />;
+			return (
+				<CalendarItem
+					meeting={meeting}
+					key={meeting.id}
+					onClick={removeMeeting}
+				/>
+			);
 		});
 
 		return <ul>{meetingsList}</ul>;

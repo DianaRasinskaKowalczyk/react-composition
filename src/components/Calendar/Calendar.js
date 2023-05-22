@@ -1,6 +1,10 @@
 import React from "react";
 import CalendarList from "../CalendarList/CalendarList";
-import { handleFetch, postFetch } from "../../api/CalendarProvider";
+import {
+	handleFetch,
+	postFetch,
+	removeFetch,
+} from "../../helpers/CalendarProvider";
 import CalendarForm from "../CalendarForm/CalendarForm";
 
 class Calendar extends React.Component {
@@ -12,7 +16,10 @@ class Calendar extends React.Component {
 		return (
 			<>
 				<CalendarForm submitForm={this.handleForm} />
-				<CalendarList meetings={this.state.meetings} />
+				<CalendarList
+					meetings={this.state.meetings}
+					removeMeeting={this.handleRemoveMeeting}
+				/>
 			</>
 		);
 	}
@@ -33,6 +40,10 @@ class Calendar extends React.Component {
 				meetings: [...meetings, meetingWithId],
 			});
 		});
+	};
+
+	handleRemoveMeeting = meeting => {
+		removeFetch(meeting).catch(err => console.log(err));
 	};
 }
 

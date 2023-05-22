@@ -1,16 +1,23 @@
 import React from "react";
+import { validateInputs } from "../../helpers/Validator";
 
 class CalendarForm extends React.Component {
 	state = {
-		meeting: {
+		meeting: this.handleInitValues(),
+	};
+
+	handleInitValues() {
+		const initValues = {
 			firstName: "",
 			lastName: "",
 			email: "",
 			date: "",
 			time: "",
 			id: "",
-		},
-	};
+		};
+
+		return initValues;
+	}
 
 	render() {
 		const { meeting } = this.state;
@@ -25,14 +32,16 @@ class CalendarForm extends React.Component {
 							<input
 								name='firstName'
 								value={meeting.firstName}
-								onChange={this.inputHandler}></input>
+								onChange={this.inputHandler}
+								required></input>
 						</label>
 						<label>
 							Last Name: {""}
 							<input
 								name='lastName'
 								value={meeting.lastName}
-								onChange={this.inputHandler}></input>
+								onChange={this.inputHandler}
+								required></input>
 						</label>
 						<label>
 							Date:{""}
@@ -40,7 +49,8 @@ class CalendarForm extends React.Component {
 								name='date'
 								placeholder={"YYYY-mm-dd"}
 								value={meeting.date}
-								onChange={this.inputHandler}></input>
+								onChange={this.inputHandler}
+								required></input>
 						</label>
 						<label>
 							Time: {""}
@@ -48,14 +58,16 @@ class CalendarForm extends React.Component {
 								name='time'
 								value={meeting.time}
 								placeholder={"HH:mm"}
-								onChange={this.inputHandler}></input>
+								onChange={this.inputHandler}
+								required></input>
 						</label>
 						<label>
 							E-mail: {""}
 							<input
 								name='email'
 								value={meeting.email}
-								onChange={this.inputHandler}></input>
+								onChange={this.inputHandler}
+								required></input>
 						</label>
 						<input type='submit' value={"Send"}></input>
 					</form>
@@ -78,69 +90,41 @@ class CalendarForm extends React.Component {
 
 		const { submitForm } = this.props;
 
-		const meeting = {
-			firstName: e.target.firstName.value,
-			lastName: e.target.lastName.value,
-			email: e.target.email.value,
-			date: e.target.date.value,
-			time: e.target.time.value,
-			id: "",
-		};
+		const fields = [
+			{ name: "firstName", label: "Firstname", required: true, pattern: false },
+			{ name: "lastName", label: "Lastname", required: true, pattern: false },
+			{
+				name: "date",
+				label: "Date",
+				required: true,
+				pattern: "^([0-9]{4})-([0-9]{2})-([0-9]{2})",
+			},
+			{
+				name: "time",
+				label: "Time",
+				required: true,
+				pattern: "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
+			},
+			{
+				name: "email",
+				label: "E-mail",
+				required: true,
+				pattern: "^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$",
+			},
+		];
 
-		console.log(meeting);
-
-		const errors = this.validateInputs(meeting);
+		const errors = validateInputs(this.state.meeting, fields);
 
 		if (errors.length > 0) {
 			console.log(errors);
 			alert("Check the form");
 		} else {
-			submitForm(meeting);
+			submitForm(this.state.meeting);
 			this.setState({
-				meeting: {
-					firstName: "",
-					lastName: "",
-					email: "",
-					date: "",
-					time: "",
-				},
+				meeting: this.handleInitValues(),
 			});
 		}
 	};
-
-	validateInputs(inputData) {
-		let errors = [];
-
-		const { firstName, lastName, email, date, time } = inputData;
-
-		if (firstName.length < 2) {
-			errors.push("Firstname is too short");
-		}
-
-		if (lastName.length < 2) {
-			errors.push("Lastname is too short");
-		}
-
-		const emailValidation = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-
-		if (!email.match(emailValidation)) {
-			errors.push("Invalid email");
-		}
-
-		const dateValidation = /^([0-9]{4})-([0-9]{2})-([0-9]{2})/;
-
-		if (!date.match(dateValidation)) {
-			errors.push("Invalid date");
-		}
-
-		const timeValidation = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-
-		if (!time.match(timeValidation)) {
-			errors.push("Invalid time");
-		}
-
-		return errors;
-	}
 }
 
 export default CalendarForm;

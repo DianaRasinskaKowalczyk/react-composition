@@ -9,9 +9,6 @@ export function handleFetch(options, additionalPath = "") {
 		}
 		throw new Error("Network error!");
 	});
-	// .then(resp => {
-	// 	console.log(resp);
-	// });
 }
 
 export function postFetch(meeting) {
@@ -21,4 +18,11 @@ export function postFetch(meeting) {
 		headers: { "Content-Type": "application/json" },
 	};
 	return handleFetch(options);
+}
+
+export function removeFetch(meeting) {
+	const options = {
+		method: "DELETE",
+	};
+	return handleFetch(options, `/${meeting}`);
 }
