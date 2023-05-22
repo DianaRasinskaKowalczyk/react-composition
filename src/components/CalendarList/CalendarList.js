@@ -10,7 +10,7 @@ class CalendarList extends React.Component {
 				<CalendarItem
 					meeting={meeting}
 					key={meeting.id}
-					onClick={removeMeeting}
+					removeMeeting={removeMeeting}
 				/>
 			);
 		});
