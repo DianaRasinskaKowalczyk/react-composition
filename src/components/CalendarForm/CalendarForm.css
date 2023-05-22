@@ -1,0 +1,25 @@
+.calendar__form {
+	display: flex;
+	justify-content: center;
+	border: 2px solid #385170;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	column-gap: 10px;
+	background-color: #9fd3c7;
+}
+
+.form__label {
+	font-size: 17px;
+	font-weight: 700;
+	color: #385170;
+}
+
+.btn {
+	padding: 10px;
+	font-size: 17px;
+	background-color: #385170;
+	color: #9fd3c7;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-left: 30px;
+}

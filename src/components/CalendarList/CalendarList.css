@@ -1,0 +1,8 @@
+.calendar__list {
+	list-style: none;
+	display: inline-block;
+	display: flex;
+	flex-direction: row;
+	column-gap: 5px;
+	justify-content: center;
+}

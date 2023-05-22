@@ -1,0 +1,22 @@
+.calendar__item {
+	margin-top: 35px;
+	margin-bottom: 25px;
+	border: 1px solid #9fd3c7;
+	padding: 15px;
+	font-size: 18px;
+	text-align: center;
+	background-color: #ececec;
+	color: #142d4c;
+}
+
+.btn__item {
+	padding: 10px;
+	font-size: 17px;
+	background-color: #385170;
+	color: #9fd3c7;
+	margin: auto;
+}
+
+.item__text {
+	font-weight: 600;
+}

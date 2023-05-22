@@ -1,5 +1,6 @@
 import React from "react";
 import CalendarItem from "../CalendarItem/CalendarItem";
+import "./CalendarList.css";
 
 class CalendarList extends React.Component {
 	render() {
@@ -15,7 +16,7 @@ class CalendarList extends React.Component {
 			);
 		});
 
-		return <ul>{meetingsList}</ul>;
+		return <ul className='calendar__list'>{meetingsList}</ul>;
 	}
 }
 

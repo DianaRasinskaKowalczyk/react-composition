@@ -6,6 +6,7 @@ import {
 	removeFetch,
 } from "../../helpers/CalendarProvider";
 import CalendarForm from "../CalendarForm/CalendarForm";
+import "./Calendar.css";
 
 class Calendar extends React.Component {
 	state = {
@@ -15,6 +16,7 @@ class Calendar extends React.Component {
 	render() {
 		return (
 			<>
+				<h1 className='calendar__header'> Meetings Manager</h1>
 				<CalendarForm submitForm={this.handleForm} />
 				<CalendarList
 					meetings={this.state.meetings}
@@ -43,7 +45,11 @@ class Calendar extends React.Component {
 	};
 
 	handleRemoveMeeting = meeting => {
-		removeFetch(meeting).catch(err => console.log(err));
+		removeFetch(meeting).then(() =>
+			handleFetch().then(meetings => {
+				this.setState({ meetings: meetings });
+			})
+		);
 	};
 }
 

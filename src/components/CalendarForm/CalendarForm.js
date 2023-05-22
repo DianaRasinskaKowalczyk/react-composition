@@ -1,5 +1,6 @@
 import React from "react";
 import { validateInputs } from "../../helpers/Validator";
+import "./CalendarForm.css";
 
 class CalendarForm extends React.Component {
 	state = {
@@ -24,54 +25,51 @@ class CalendarForm extends React.Component {
 
 		return (
 			<section>
-				<h1> Meetings Manager</h1>
-				<section>
-					<form onSubmit={this.handleForm}>
-						<label>
-							First Name: {""}
-							<input
-								name='firstName'
-								value={meeting.firstName}
-								onChange={this.inputHandler}
-								required></input>
-						</label>
-						<label>
-							Last Name: {""}
-							<input
-								name='lastName'
-								value={meeting.lastName}
-								onChange={this.inputHandler}
-								required></input>
-						</label>
-						<label>
-							Date:{""}
-							<input
-								name='date'
-								placeholder={"YYYY-mm-dd"}
-								value={meeting.date}
-								onChange={this.inputHandler}
-								required></input>
-						</label>
-						<label>
-							Time: {""}
-							<input
-								name='time'
-								value={meeting.time}
-								placeholder={"HH:mm"}
-								onChange={this.inputHandler}
-								required></input>
-						</label>
-						<label>
-							E-mail: {""}
-							<input
-								name='email'
-								value={meeting.email}
-								onChange={this.inputHandler}
-								required></input>
-						</label>
-						<input type='submit' value={"Send"}></input>
-					</form>
-				</section>
+				<form className='calendar__form' onSubmit={this.handleForm}>
+					<label className='form__label'>
+						First Name: {""}
+						<input
+							name='firstName'
+							value={meeting.firstName}
+							onChange={this.inputHandler}
+							required></input>
+					</label>
+					<label className='form__label'>
+						Last Name: {""}
+						<input
+							name='lastName'
+							value={meeting.lastName}
+							onChange={this.inputHandler}
+							required></input>
+					</label>
+					<label className='form__label'>
+						Date: {""}
+						<input
+							name='date'
+							placeholder={"YYYY-mm-dd"}
+							value={meeting.date}
+							onChange={this.inputHandler}
+							required></input>
+					</label>
+					<label className='form__label'>
+						Time: {""}
+						<input
+							name='time'
+							value={meeting.time}
+							placeholder={"HH:mm"}
+							onChange={this.inputHandler}
+							required></input>
+					</label>
+					<label className='form__label'>
+						E-mail: {""}
+						<input
+							name='email'
+							value={meeting.email}
+							onChange={this.inputHandler}
+							required></input>
+					</label>
+					<input className='btn' type='submit' value={"Send"}></input>
+				</form>
 			</section>
 		);
 	}
