@@ -1,6 +1,8 @@
 import React from "react";
 import { validateInputs } from "../../helpers/Validator";
 import "./CalendarForm.css";
+import { fields } from "../../helpers/Fields";
+import { v4 as uuid } from "uuid";
 
 class CalendarForm extends React.Component {
 	state = {
@@ -21,53 +23,10 @@ class CalendarForm extends React.Component {
 	}
 
 	render() {
-		const { meeting } = this.state;
-
 		return (
 			<section>
 				<form className='calendar__form' onSubmit={this.handleForm}>
-					<label className='form__label'>
-						First Name: {""}
-						<input
-							name='firstName'
-							value={meeting.firstName}
-							onChange={this.inputHandler}
-							required></input>
-					</label>
-					<label className='form__label'>
-						Last Name: {""}
-						<input
-							name='lastName'
-							value={meeting.lastName}
-							onChange={this.inputHandler}
-							required></input>
-					</label>
-					<label className='form__label'>
-						Date: {""}
-						<input
-							name='date'
-							placeholder={"YYYY-mm-dd"}
-							value={meeting.date}
-							onChange={this.inputHandler}
-							required></input>
-					</label>
-					<label className='form__label'>
-						Time: {""}
-						<input
-							name='time'
-							value={meeting.time}
-							placeholder={"HH:mm"}
-							onChange={this.inputHandler}
-							required></input>
-					</label>
-					<label className='form__label'>
-						E-mail: {""}
-						<input
-							name='email'
-							value={meeting.email}
-							onChange={this.inputHandler}
-							required></input>
-					</label>
+					{this.renderInputs(fields)}
 					<input className='btn' type='submit' value={"Send"}></input>
 				</form>
 			</section>
@@ -78,9 +37,7 @@ class CalendarForm extends React.Component {
 		const { meeting } = this.state;
 		const { value, name } = e.target;
 
-		this.setState({ meeting: { ...meeting, [name]: value } }, () =>
-			console.log(meeting)
-		);
+		this.setState({ meeting: { ...meeting, [name]: value } });
 	};
 
 	handleForm = e => {
@@ -88,33 +45,11 @@ class CalendarForm extends React.Component {
 
 		const { submitForm } = this.props;
 
-		const fields = [
-			{ name: "firstName", label: "Firstname", required: true, pattern: false },
-			{ name: "lastName", label: "Lastname", required: true, pattern: false },
-			{
-				name: "date",
-				label: "Date",
-				required: true,
-				pattern: "^([0-9]{4})-([0-9]{2})-([0-9]{2})",
-			},
-			{
-				name: "time",
-				label: "Time",
-				required: true,
-				pattern: "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
-			},
-			{
-				name: "email",
-				label: "E-mail",
-				required: true,
-				pattern: "^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$",
-			},
-		];
+		const { meeting } = this.state;
 
-		const errors = validateInputs(this.state.meeting, fields);
+		const errors = validateInputs(meeting, fields);
 
 		if (errors.length > 0) {
-			console.log(errors);
 			alert("Check the form");
 		} else {
 			submitForm(this.state.meeting);
@@ -122,6 +57,26 @@ class CalendarForm extends React.Component {
 				meeting: this.handleInitValues(),
 			});
 		}
+	};
+
+	renderInputs = fieldsInputs => {
+		const { meeting } = this.state;
+		const newFields = fieldsInputs.map(field => {
+			return (
+				<React.Fragment key={uuid()}>
+					<label className='form__label'>
+						{field.label} {""}
+						<input
+							name={field.name}
+							value={meeting[field.name]}
+							onChange={this.inputHandler}
+							required={field.required}></input>
+					</label>
+				</React.Fragment>
+			);
+		});
+
+		return newFields;
 	};
 }
 
